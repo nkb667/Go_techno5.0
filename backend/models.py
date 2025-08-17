@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 from enum import Enum
@@ -20,16 +20,11 @@ class DifficultyLevel(str, Enum):
     INTERMEDIATE = "intermediate"
     ADVANCED = "advanced"
 
-# User Models
+# User Models - Simplified for code-based authentication
 class UserBase(BaseModel):
-    email: EmailStr
     full_name: str
     role: UserRole = UserRole.STUDENT
     is_active: bool = True
-    is_verified: bool = False
-
-class UserCreate(UserBase):
-    password: str
 
 class User(UserBase):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
