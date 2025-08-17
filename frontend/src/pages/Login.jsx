@@ -43,9 +43,15 @@ const Login = () => {
   };
 
   const copyToClipboard = (code, type) => {
-    navigator.clipboard.writeText(code);
-    setCopiedCode(type);
-    setTimeout(() => setCopiedCode(''), 2000);
+    try {
+      navigator.clipboard.writeText(code);
+      setCopiedCode(type);
+      setTimeout(() => setCopiedCode(''), 2000);
+    } catch (error) {
+      console.log('Clipboard not available, but code was set');
+      setCopiedCode(type);
+      setTimeout(() => setCopiedCode(''), 2000);
+    }
   };
 
   return (
