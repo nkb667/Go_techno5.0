@@ -73,11 +73,9 @@ async def get_current_user_with_db(
     # Create virtual user object
     virtual_user = User(
         id=user_id,
-        email=f"{user_id}@golearn.com",
         full_name=name,
         role=UserRole(role),
-        is_active=True,
-        is_verified=True
+        is_active=True
     )
     
     return virtual_user
@@ -120,11 +118,9 @@ async def login_with_code(credentials: dict, database = Depends(get_db)):
     # Create virtual user for response
     virtual_user = User(
         id=user_id,
-        email=f"{user_id}@golearn.com",
         full_name=code_info["name"],
         role=UserRole(code_info["role"]),
-        is_active=True,
-        is_verified=True
+        is_active=True
     )
     
     return Token(access_token=access_token, user=virtual_user)
@@ -153,11 +149,9 @@ async def get_users(
     for i in range(5):
         virtual_users.append(User(
             id=f"demo_user_{i}",
-            email=f"user{i}@golearn.com",
             full_name=f"Demo User {i}",
             role=UserRole.STUDENT,
-            is_active=True,
-            is_verified=True
+            is_active=True
         ))
     
     return virtual_users
@@ -181,11 +175,9 @@ async def get_user_by_id(
     else:
         return User(
             id=user_id,
-            email=f"{user_id}@golearn.com",
             full_name="Demo User",
             role=UserRole.STUDENT,
-            is_active=True,
-            is_verified=True
+            is_active=True
         )
 
 # ============ CLASS MANAGEMENT ENDPOINTS ============
@@ -497,7 +489,8 @@ async def get_user_achievements(
 @api_router.get("/")
 async def root():
     return {
-        "message": "GO Learning Platform API", 
+        "message": "GO Learning Platform API - Code-Based Access", 
+        "status": "✅ Registration removed - Access by code only",
         "access_info": "Use access codes to login",
         "codes": {
             "user": "GO2025_UserAccess_7X9K",

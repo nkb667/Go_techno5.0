@@ -30,8 +30,7 @@ async def create_indexes():
     """Create database indexes"""
     db = database.database
     
-    # User indexes
-    await db.users.create_index("email", unique=True)
+    # User indexes - removed email index since we don't use email anymore
     await db.users.create_index("id", unique=True)
     
     # Class indexes
